@@ -73,7 +73,8 @@ class Ui_Form(QtWidgets.QWidget):
         list = ProcessData.FindData(self.lineEdit.text())
     def Prepare(self):
         self.d1.Prepare()
-        print(self.d1.IsFirst)
+
+        #print(self.d1.IsFirst)
         
 if __name__=="__main__":
 

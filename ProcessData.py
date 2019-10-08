@@ -10,3 +10,5 @@ def FindData(filedir):
     print(list2)
     #print(len(list))
     return list
+
+def

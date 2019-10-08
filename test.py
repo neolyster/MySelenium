@@ -2,14 +2,20 @@ from selenium import webdriver
 import  time
 import xlrd
 import numpy as np
+import os
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 #网页操作
-driver = webdriver.Chrome()
-driver.get("http://www.icbc.com.cn/icbc/")
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
-print(driver.current_url)
+def webfunc():
 
+    driver = webdriver.Chrome()
+    driver.get("https://www.baidu.com/")
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
+    print(driver.current_url)
+    element = driver.find_element_by_name("tj_trnews")
+    element = driver.find_element_by_xpath("//div[@name='tj_trnews']")
+    element.click()
+    driver.back()
 # name = driver.find_element_by_id("KeyWord")
 # name.send_keys("data_operation")
 
@@ -22,3 +28,11 @@ print(driver.current_url)
 #
 # x = table.col_values(1)[10]
 # print(x)
+
+def func(*args):
+    if(len(args) ==0):
+        print('0 parameter')
+if __name__ == "__main__":
+    func()
+    webfunc()
+    os.system("pause")

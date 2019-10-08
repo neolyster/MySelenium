@@ -8,15 +8,15 @@ class AutoClass():
     IsFirst = True
     SavePath = "."
     def __init__(self):
-        self.IsFirst = True
+        self.IsFirst = False
         self.url = ""
-
+        self.driver.get("http://www.icbc.com.cn/icbc/")
     def ChangeSavePath(self,path):
         self.SavePath = path
     def Prepare(self):
         print(self.IsFirst)
         if self.IsFirst == True:
-            print("here1")
+            #print("here1")
             self.driver.get("http://www.icbc.com.cn/icbc/")
             self.IsFirst = False
 
@@ -35,8 +35,15 @@ class AutoClass():
             #         self.driver.switch_to(handle)
             #         print(self.driver.title)
 
-    def SavePic(self):
-        Path = self.SavePath + "/test.png"
-        #print(Path)
-        pic_url = self.driver.get_screenshot_as_file(Path)
-        #print(pic_url)
+    def SavePic(self,*args):#保存截图操作
+        if len(args)==0:
+            Path = self.SavePath + "/test.png"
+            #print(Path)
+            pic_url = self.driver.get_screenshot_as_file(Path)
+            #print(pic_url)
+        elif len(args) ==1 :
+            str = args[0]
+            Path = self.SavePath +"/" + str+".png"
+            pic_url = self.driver.get_screenshot_as_file(Path)
+
+
