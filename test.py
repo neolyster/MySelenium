@@ -9,13 +9,28 @@ def webfunc():
 
     driver = webdriver.Chrome()
     driver.get("https://www.baidu.com/")
+    #driver.maximize_window() bug
     # chrome_options = webdriver.ChromeOptions()
     # chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
     print(driver.current_url)
     element = driver.find_element_by_name("tj_trnews")
-    element = driver.find_element_by_xpath("//div[@name='tj_trnews']")
+    element = driver.find_element_by_xpath("/html/body/div[@id='wrapper']/div[@id='head']/div[@class='head_wrapper']/div[@id='u1']/a[@class='mnav'][1]")
     element.click()
-    driver.back()
+
+    # 将滚动条移动到页面的底部
+    js = "var q=document.documentElement.scrollTop=100000"
+    driver.execute_script(js)
+    js = "window.scrollTo(0,document.body.scrollHeight)"
+    for i in range(10):
+        time.sleep(1)
+        driver.execute_script(js)
+
+    element1 = driver.find_element_by_xpath("/html[@class='expanded']/body/div[@id='body']/div[@class='DiscoveryNews']/div[@id='col-discovery']/div[@class='l-left-col col-mod']/ul[@class='ulist focuslistnews'][1]/li[@class='bold-item']/a")
+    driver.execute_script("arguments[0].scrollIntoView(true);", element1)
+    #driver.maximize_window()
+    driver.execute_script(js)
+    driver.execute_script("window.scrollBy(0,-500)")
+    #driver.back()
 # name = driver.find_element_by_id("KeyWord")
 # name.send_keys("data_operation")
 
@@ -28,6 +43,10 @@ def webfunc():
 #
 # x = table.col_values(1)[10]
 # print(x)
+def Webfunc():
+    driver = webdriver.Chrome()
+
+
 
 def func(*args):
     if(len(args) ==0):

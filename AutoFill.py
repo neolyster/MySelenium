@@ -70,7 +70,8 @@ class Ui_Form(QtWidgets.QWidget):
         print(self.d1.SavePath)
 
     def SeleData(self):
-        list = ProcessData.FindData(self.lineEdit.text())
+        self.list = ProcessData.FindData(self.lineEdit.text())
+
     def Prepare(self):
         self.d1.Prepare()
 
