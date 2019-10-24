@@ -36,18 +36,19 @@ class Ui_Form(QtWidgets.QWidget):
         self.lineEdit_2.setGeometry(QtCore.QRect(150, 60, 221, 20))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.pushButton_3 = QtWidgets.QPushButton(Form)
-        self.pushButton_3.setGeometry(QtCore.QRect(390, 60, 75, 23))
+        self.pushButton_3.setGeometry(QtCore.QRect(390, 30, 75, 23))
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(Form)
-        self.pushButton_4.setGeometry(QtCore.QRect(390, 30, 75, 23))
+        self.pushButton_4.setGeometry(QtCore.QRect(390, 60, 75, 23))
         self.pushButton_4.setObjectName("pushButton_4")
         self.listWidget = QtWidgets.QListWidget(Form)
         self.listWidget.setGeometry(QtCore.QRect(30, 90, 431, 231))
         self.listWidget.setObjectName("listWidget")
         self.pushButton.clicked.connect(self.jump_to_dir)
         self.pushButton_2.clicked.connect(self.jump_to_dir2)
+
         self.pushButton_3.clicked.connect(self.SeleData)
-        self.pushButton_4.clicked.connect(self.Prepare)
+        self.pushButton_4.clicked.connect(self.Begin)
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -56,13 +57,16 @@ class Ui_Form(QtWidgets.QWidget):
         Form.setWindowTitle(_translate("Form", "AutoFill"))
         self.pushButton.setText(_translate("Form", "选择Excel文件"))
         self.pushButton_2.setText(_translate("Form", "选择保存位置"))
-        self.pushButton_3.setText(_translate("Form", "开始"))
-        self.pushButton_4.setText(_translate("Form", "准备"))
+
+        self.pushButton_3.setText(_translate("Form", "准备"))
+
+        self.pushButton_4.setText(_translate("Form", "开始"))
 
     def jump_to_dir(self):
 
         file_name = QFileDialog.getOpenFileName(self,r'打开Excel文件',r'',r'Excel Files(*.xls *.xlsx)')#这里用空格隔开 不然又BUG
         self.lineEdit.setText(str(file_name[0]))
+
     def jump_to_dir2(self):
         SaveFile = QFileDialog.getExistingDirectory(self,r"选择文件夹","/")
         self.lineEdit_2.setText(SaveFile)
@@ -70,10 +74,13 @@ class Ui_Form(QtWidgets.QWidget):
         print(self.d1.SavePath)
 
     def SeleData(self):
-        self.list = ProcessData.FindData(self.lineEdit.text())
-
-    def Prepare(self):
-        self.d1.Prepare()
+        try:
+            self.list = ProcessData.FindData(self.lineEdit.text())
+        except ValueError:
+            print("Error")
+    def Begin(self):
+        #self.d1.Prepare()
+        self.d1.FindTag(self.list)
 
         #print(self.d1.IsFirst)
         

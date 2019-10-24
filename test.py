@@ -3,6 +3,7 @@ import  time
 import xlrd
 import numpy as np
 import os
+
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 #网页操作
 def webfunc():
@@ -46,6 +47,15 @@ def webfunc():
 def Webfunc():
     driver = webdriver.Chrome()
 
+def xlsfunc(filedir):
+    list = []
+    data = xlrd.open_workbook(filedir)
+    table = data.sheets()[0]
+    list = table.col_values(4)  # 第五列数据
+    list2 = table.col_values(4, 7, 17)  # 先试验10个数据
+    print(list2)
+    # print(len(list))
+    return list2
 
 
 def func(*args):

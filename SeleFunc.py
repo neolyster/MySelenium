@@ -10,7 +10,7 @@ class AutoClass():
     def __init__(self):
         self.IsFirst = False
         self.url = ""
-        self.driver.get("http://www.icbc.com.cn/icbc/")
+        #self.driver.get("http://www.icbc.com.cn/icbc/")
     def ChangeSavePath(self,path):
         self.SavePath = path
     def Prepare(self):
@@ -47,18 +47,39 @@ class AutoClass():
             pic_url = self.driver.get_screenshot_as_file(Path)
 
     def FindTag(self,list):
-        for i in range(10):
-            element1 = self.driver.find_element_by_xpath("//*[@id='sMin_amount_input']")
-            element1.send_keys(list[i])
-            element2 = self.driver.find_element_by_xpath("//*[@id='sMax_amount_input']")
-            element2.send_keys(list[i])
-            element_spr = self.driver.find_element_by_xpath("//*[@id='spr_col_btn'] ")
-            element_spr.click()
-            element_sub = self.driver.find_element_by_xpath("//*[@id='submitBtn']")
-            element_sub.click()
+        self.driver.switch_to.frame('mainFrame')#切换到当前iframe
 
-            element_pic = self.driver.find_element_by_xpath("//*[@id='balanceTaxInfoBody']/tr/td[4]/a")
-            self.driver.execute_script("arguments[0].scrollIntoView(true);", element_pic)
+        #self.driver.switch_to_window(-1)
+        for i in range(10):
+            # element1 = self.driver.find_element_by_xpath("/html/body/div[1]/div[1]/div[1]/form[4]/div[10]/div[1]/input")
+            # element1.send_keys(list[i])
+            # element2 = self.driver.find_element_by_xpath("//*[@id='sMax_amount_input']")
+            # element2.send_keys(list[i])
+            # try:
+            #     element_spr = self.driver.find_element_by_xpath("//*[@id='spr_col_btn'] ")
+            #     element_spr.click()
+            # except :
+            #     print("有错误")
+            #
+            # element_sub = self.driver.find_element_by_xpath("//*[@id='submitBtn']")
+            # element_sub.click()
+
+            # element_pic = self.driver.find_element_by_xpath("//*[@id='balanceTaxInfoBody']/tr/td[4]/a")
+
+            #self.driver.execute_script("arguments[0].scrollIntoView(true);", element_pic)
+            element_spr = self.driver.find_element_by_id("spr_col_btn")
+            element_spr.click()
+
+            element1 = self.driver.find_element_by_id('sMin_amount_input')
+            element1.clear()
+            element1.send_keys(list[i])
+            element2 = self.driver.find_element_by_id("sMax_amount_input")
+            element2.clear()
+            element2.send_keys(list[i])
+            element_sub = self.driver.find_element_by_id("submitBtn")
+            element_sub.click()
+            print("第%d次",i)
+            #time.sleep(3)
             Path = self.SavePath + "/" + str(i) + ".png"
             pic_url = self.driver.get_screenshot_as_file(Path)
             time.sleep(2)
